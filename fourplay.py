@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
-from flask_login import login_user, LoginManager, UserMixin, current_user, login_required
+from flask_login import login_user, LoginManager, UserMixin
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
@@ -13,21 +13,24 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 @login_manager.user_loader
-def load_user(user_id):
-    return Volunteer.get(user_id)
+def load_user(volunteer_id):
+    return Volunteer.query.get(int(volunteer_id))
 
 bcrypt = Bcrypt(app)
 
 app.app_context().push()
 
-class Volunteer(db.Model):
+class Volunteer(db.Model, UserMixin):
     volunteer_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
 
+    def get_id(self):
+           return (self.volunteer_id)
+
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.password}')"
+        return f"User('{self.volunteer_id}', {self.username}', '{self.email}', '{self.password}')"
 
 class inventory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -57,20 +60,16 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-@app.route("/login", methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         volunteer = Volunteer.query.filter_by(email=form.email.data).first()
-        if volunteer and bcrypt.check_password_hash(volunteer.password, form.password.data):
-            login_user(volunteer, remember=form.remember.data)
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
-        else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
+        if volunteer:
+            if bcrypt.check_password_hash(volunteer.password, form.password.data):
+                login_user(volunteer)
+                return redirect(url_for('home'))
+    return render_template('login.html', form=form)
 
 # Remove while deploying
 if __name__ == '__main__':
