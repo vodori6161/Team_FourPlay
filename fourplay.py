@@ -69,6 +69,8 @@ def login():
             if bcrypt.check_password_hash(volunteer.password, form.password.data):
                 login_user(volunteer)
                 return redirect(url_for('home'))
+        else:
+            return redirect(url_for('register'))
     return render_template('login.html', form=form)
 
 # Remove while deploying
