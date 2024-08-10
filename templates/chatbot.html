@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature Disaster UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(to bottom, #f3f3f3, #fff);
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .input-group input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #planText {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Nature Disaster UI</h2>
+        <div class="input-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" placeholder="Enter location">
+            <button id="useGeolocation">Use Current Location</button>
+        </div>
+        <div class="input-group">
+            <label for="disaster">Disaster:</label>
+            <select id="disaster">
+                <!-- Geophysical Disasters -->
+                <option value="earthquake">Earthquake</option>
+                <option value="tsunami">Tsunami</option>
+                <option value="volcanic-eruption">Volcanic eruption</option>
+                <option value="landslide">Landslide</option>
+                <option value="avalanche">Avalanche</option>
+                <option value="sinkhole">Sinkhole</option>
+
+                <!-- Hydrological Disasters -->
+                <option value="flood">Flood</option>
+                <option value="drought">Drought</option>
+                <option value="wildfire">Wildfire</option>
+
+                <!-- Meteorological Disasters -->
+                <option value="cyclone">Cyclone</option>
+                <option value="tornado">Tornado</option>
+                <option value="thunderstorm">Thunderstorm</option>
+                <option value="hailstorm">Hailstorm</option>
+                <option value="blizzard">Blizzard</option>
+                <option value="heatwave">Heatwave</option>
+                <option value="cold-wave">Cold wave</option>
+
+                <!-- Biological Disasters -->
+                <option value="epidemic">Epidemic</option>
+                <option value="pandemic">Pandemic</option>
+                <option value="pest-infestation">Pest infestation</option>
+                <option value="disease-outbreak">Disease outbreak</option>
+
+                <!-- Other Natural Hazards -->
+                <option value="solar-flare">Solar flare</option>
+                <option value="meteorite-impact">Meteorite impact</option>
+            </select>
+        </div>
+        <button id="generateButton">Generate Output</button>
+        <div id="planText"></div>
+    </div>
+
+    <script>
+        const generateButton = document.getElementById('generateButton');
+        const planText = document.getElementById('planText');
+        const useGeolocationButton = document.getElementById('useGeolocation');
+        const locationInput = document.getElementById('location');
+
+        async function generatePlan(location, disaster) {
+            const apiUrl = `https://rough-cloud-4463.sujayvikramgs.workers.dev/?location=${location}&disaster=${disaster}`;
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            return data || [];
+        }
+
+        generateButton.addEventListener('click', async () => {
+            const location = locationInput.value;
+            const disaster = document.getElementById('disaster').value;
+            const plan = await generatePlan(location, disaster);
+            const planString = plan.join('\n\n');
+            planText.textContent = planString;
+        });
+
+        useGeolocationButton.addEventListener('click', () => {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                locationInput.value = `${latitude}, ${longitude}`;
+            }, (error) => {
+                console.error(error);
+            });
+        });
+    </script>
+</body>
+</html>

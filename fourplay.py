@@ -73,6 +73,10 @@ def login():
             return redirect(url_for('register'))
     return render_template('login.html', form=form)
 
+@app.route('/chatbot.html')
+def chatbot():
+    return render_template('chatbot.html')
+
 # Remove while deploying
 if __name__ == '__main__':
     app.run(debug=True)
