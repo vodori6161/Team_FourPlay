@@ -41,6 +41,7 @@ class inventory(db.Model):
 # location is for determining red zone or not
 class Victim(db.Model):
     phone_no = db.Column(db.BigInteger, primary_key=True, unique=True, nullable=False)
+    aadhar_pic = db.Column(db.String, primary_key=True, unique=True, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
     latitude = db.Column(db.Float, nullable=False)
 
