@@ -108,9 +108,6 @@ def rec_cont():
 def receiver():
     return render_template('receiver.html')
 
-@app.route('/home.html')
-def home_not():
-    return render_template('home.html')
 # Remove while deploying
 if __name__ == '__main__':
     app.run(debug=True)
