@@ -68,7 +68,7 @@ def login():
         if volunteer:
             if bcrypt.check_password_hash(volunteer.password, form.password.data):
                 login_user(volunteer)
-                return redirect(url_for('home'))
+                return redirect(url_for('contributor'))
         else:
             return redirect(url_for('register'))
     return render_template('login.html', form=form)
@@ -76,6 +76,23 @@ def login():
 @app.route('/chatbot.html')
 def chatbot():
     return render_template('chatbot.html')
+
+@app.route("/contributor")
+def contributor():
+    return render_template('contributor.html')
+
+@app.route("/rec_after")
+def rec_after():
+    return render_template('rec_after.html')
+
+@app.route("/rec_cont")
+def rec_cont():
+    return render_template('rec_cont.html')
+
+@app.route("/receiver")
+def receiver():
+    return render_template('receiver.html')
+
 
 # Remove while deploying
 if __name__ == '__main__':

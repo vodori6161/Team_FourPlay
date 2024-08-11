@@ -1,0 +1,201 @@
+.form-signin {
+    border: 2px solid #ddd; /* Border around the form */
+    border-radius: 10px;    /* Rounded corners for the border */
+    padding: 20px;          /* Space between the border and content */
+    box-shadow: 0 4px 8px rgba(162, 228, 183, 0.1); /* Subtle shadow for depth */
+    background-color: #fff; /* Background color inside the box */
+    margin-left: auto;
+    
+  }
+  
+  .form-floating input,
+  .form-floating label {
+    margin-bottom: 10px; /* Space between form fields */
+  }
+  
+  .form-check {
+    margin-top: 10px; /* Space above the checkbox */
+  }
+  
+  .btn-primary {
+    margin-top: 20px; /* Space above the submit button */
+  }
+
+
+/* Custom width */
+.custom-btn {
+  width: 200px; /* Adjust this value as needed */
+}
+
+/* Flashy effect: Gradient background with a subtle animation */
+.flashy-btn {
+  background: linear-gradient(45deg, #6ab04c, #AFC8AD);
+  color: white;
+  border: none;
+  transition: 0.4s ease-in-out;
+  animation: pulse 2s infinite;
+}
+
+.flashy-btn:hover {
+  background: linear-gradient(45deg, #88AB8E, #AFC8AD);
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 5px #6ab04c, 0 0 10px #88AB8E;
+  }
+  50% {
+    box-shadow: 0 0 20px #6ab04c, 0 0 40px #88AB8E;
+  }
+  100% {
+    box-shadow: 0 0 5px #6ab04c, 0 0 10px #88AB8E;
+  }
+}
+.move-up {
+  margin-top: -10px; /* Adjust this value to lift the button up */
+}
+
+.btn-outline-primary{
+  background: linear-gradient(300deg, #7FC8A9, #D5EEBB, #5F7A61);
+  animation: gradient-animation 18s ease infinite;
+}
+
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1* var(--bs-gutter-y));
+  margin-right: calc(-.5* var(--bs-gutter-x));
+  margin-left: calc(-.5* var(--bs-gutter-x));
+}
+
+.image-container {
+  width: 140px;
+  height: 140px;
+  overflow: hidden;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Navbar styling */
+.navbar-brand {
+  font-size: 1.25rem; /* Slightly larger text for the title */
+  font-weight: 600;   /* Semi-bold font weight */
+  color: #6c757d;     /* A soft grey for the brand title */
+}
+
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .btn {
+  color: #495057; /* Dark grey for the buttons and links */
+}
+
+.btn-outline-success {
+  color: #28a745; /* Green text for the submit button */
+  border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745; /* Green background on hover */
+  color: #fff;
+}
+
+.btn-outline-danger {
+  color: #dc3545; /* Red text for the logout button */
+  border-color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545; /* Red background on hover */
+  color: #fff;
+}
+
+.navbar-light {
+  background-color: #f8f9fa; /* Light grey background for the navbar */
+  border-bottom: 2px solid #dee2e6; /* Subtle bottom border */
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Light shadow for depth */
+}
+
+/* General Styling */
+.container {
+  background-color: #f8f9fa;
+  padding: 30px; /* Increased padding */
+  border-radius: 15px; /* Slightly larger rounding */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  max-width: 1500px; /* Limit the maximum width */
+  height: 400px; /* Set a taller height */
+  margin: 0 auto; /* Center the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Image Styling */
+.donation-icon {
+  width: 120px; /* Increased size */
+  height: 120px; /* Increased size */
+  object-fit: cover;
+  border: 3px solid #ffd1dc; /* Light pink border */
+  box-shadow: 0 0.25rem 0.5rem rgba(255, 209, 220, 0.5); /* Pink shadow */
+}
+
+/* Form Styling */
+.form-group label {
+  font-weight: 500;
+  color: #6c757d;
+  margin-bottom: 5px;
+}
+
+.form-select,
+.form-control {
+  border-radius: 20px;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  font-size: 1.1rem; /* Slightly larger font */
+  padding: 10px; /* Increased padding */
+}
+
+.form-select:focus,
+.form-control:focus {
+  border-color: #ffd1dc; /* Pink border on focus */
+  box-shadow: 0 0 5px rgba(255, 209, 220, 0.5); /* Pink shadow on focus */
+}
+
+/* Button Styling */
+.btn-cute {
+  background-color: #ffd1dc;
+  color: #fff;
+  border-radius: 20px;
+  border: none;
+  padding: 12px 24px; /* Increased padding */
+  box-shadow: 0 0.125rem 0.25rem rgba(255, 209, 220, 0.5);
+  transition: background-color 0.3s ease;
+  font-size: 1.1rem; /* Slightly larger font */
+}
+
+.btn-cute:hover {
+  background-color: #ffb3c1;
+  color: #fff;
+  box-shadow: 0 0.25rem 0.5rem rgba(255, 179, 193, 0.5);
+}
+
+/* Column Alignment */
+.align-items-center {
+  align-items: center;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}

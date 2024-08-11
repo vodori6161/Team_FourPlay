@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background-image: url(static/help.jpg);
+        }
+        .card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #163020;
+            border-radius: 1rem 1rem 0 0;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            border-radius: 0.5rem;
+        }
+        .btn-custom {
+            background-color: #163020;
+            color: white;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+        }
+        .btn-custom:hover {
+            background-color: #163020;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Please fill up the form.</h2>
+                </div>
+                <div class="card-body p-4">
+                    <form>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number*</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address*</label>
+                            <textarea class="form-control" id="address" rows="4" placeholder="Enter your address"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fileUpload" class="form-label">Upload Your Aadhar*</label>
+                            <input type="file" class="form-control" id="fileUpload" accept="image/*,.pdf,.jpeg,.jpg,.png">
+                        </div>
+                        <button type="submit" class="btn btn-custom">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
