@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, QuantityForm
 from flask_bcrypt import Bcrypt
 from flask_login import login_user, LoginManager, UserMixin
 
@@ -73,19 +73,33 @@ def login():
             return redirect(url_for('register'))
     return render_template('login.html', form=form)
 
+@app.route('/contributor', methods=['GET','POST'])
+def contributor():
+    form = QuantityForm()
+    if form.validate_on_submit():
+        selected_item = form.item.data
+        print(selected_item)
+        selected_quantity = form.quantity.data
+        # Store the selected value in the database
+        new_selection = inventory(item=selected_item, quantity=selected_quantity)
+        if inventory.query.filter_by(item=selected_item).first():
+            inventory.quantity = inventory.quantity + selected_quantity
+        db.session.add(new_selection)
+        db.session.commit()
+    else:
+        return render_template('contributor.html', form=form)
+    return redirect('rec_cont')
+
 @app.route('/chatbot.html')
 def chatbot():
     return render_template('chatbot.html')
 
-@app.route("/contributor")
-def contributor():
-    return render_template('contributor.html')
 
 @app.route("/rec_after")
 def rec_after():
     return render_template('rec_after.html')
 
-@app.route("/rec_cont")
+@app.route("/rec_cont.html")
 def rec_cont():
     return render_template('rec_cont.html')
 
@@ -93,7 +107,9 @@ def rec_cont():
 def receiver():
     return render_template('receiver.html')
 
-
+@app.route('/home.html')
+def home_not():
+    return render_template('home.html')
 # Remove while deploying
 if __name__ == '__main__':
     app.run(debug=True)
