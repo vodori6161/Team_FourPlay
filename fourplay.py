@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForm, LoginForm, QuantityForm
 from flask_bcrypt import Bcrypt
-from flask_login import login_user, LoginManager, UserMixin
+from flask_login import login_user, LoginManager, UserMixin, login_required, logout_user
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
@@ -74,12 +74,17 @@ def login():
             return redirect(url_for('register'))
     return render_template('login.html', form=form)
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
 @app.route('/contributor', methods=['GET','POST'])
+@login_required
 def contributor():
     form = QuantityForm()
     if form.validate_on_submit():
         selected_item = form.item.data
-        print(selected_item)
         selected_quantity = form.quantity.data
         # Store the selected value in the database
         new_selection = inventory(item=selected_item, quantity=selected_quantity)
@@ -91,7 +96,7 @@ def contributor():
         return render_template('contributor.html', form=form)
     return redirect('rec_cont')
 
-@app.route('/chatbot.html')
+@app.route('/chatbot')
 def chatbot():
     return render_template('chatbot.html')
 
