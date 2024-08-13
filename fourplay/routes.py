@@ -1,62 +1,8 @@
-from flask import Flask, render_template, url_for, flash, redirect, request
-from flask_sqlalchemy import SQLAlchemy
-from forms import RegistrationForm, LoginForm
-from flask_bcrypt import Bcrypt
-from flask_login import login_user, LoginManager, UserMixin, login_required, logout_user
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
-db = SQLAlchemy(app)
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-@login_manager.user_loader
-def load_user(volunteer_id):
-    return Volunteer.query.get(int(volunteer_id))
-
-bcrypt = Bcrypt(app)
-
-app.app_context().push()
-
-# Databases: 
-
-class Volunteer(db.Model, UserMixin):
-    volunteer_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-
-    def get_id(self):
-           return (self.volunteer_id)
-
-    def __repr__(self):
-        return f"User('{self.volunteer_id}', {self.username}', '{self.email}', '{self.password}')"
-
-class Inventory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    item = db.Column(db.String(40), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
-
-    def __repr__(self):
-        return f"Inventory('{self.item}', '{self.value}')"
-    
-@app.before_request
-def create_tables():
-    db.create_all()
-
-# phone_no - primary key because we want him to come only once and we keep it for OTP. If phone_no exists in db, redirect to home page
-# location is for determining red zone or not
-class Victim(db.Model):
-    phone_no = db.Column(db.BigInteger, primary_key=True, unique=True, nullable=False)
-    aadhar_pic = db.Column(db.String, primary_key=True, unique=True, nullable=False)
-    longitude = db.Column(db.Float, nullable=False)
-    latitude = db.Column(db.Float, nullable=False)
+from flask import render_template, url_for, flash, redirect, request
+from fourplay import app, db, bcrypt
+from fourplay.forms import RegistrationForm, LoginForm
+from fourplay.models import Volunteer, Inventory, Victim
+from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/")
 def home():
@@ -131,7 +77,3 @@ def rec_cont():
 @app.route("/receiver")
 def receiver():
     return render_template('receiver.html')
-
-# Remove while deploying
-if __name__ == '__main__':
-    app.run(debug=True)
