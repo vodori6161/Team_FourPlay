@@ -53,27 +53,6 @@
             <p>“Donate now to support those in need and create a brighter tomorrow for everyone.”</p>
             <p><a class="btn btn-secondary" href="#">Scroll down for more »</a></p>
         </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-            <div class="image-container">
-                <img src="static/help4.jpeg" alt="Help Image" class="rounded-circle">
-            </div>
-            <p>“Make a difference in someone’s life with a simple donation. Your support can bring hope to those in need.”</p>
-            <p><a class="btn btn-secondary" href="#">Scroll down for more »</a></p>
-        </div>
-        <div class="col-lg-4">
-            <div class="image-container">
-                <img src="static/help5.jpeg" alt="Help Image" class="rounded-circle">
-            </div>
-            <p>"No one is useless in this world who lightens the burdens of another."</p>
-            <p><a class="btn btn-secondary" href="#">Scroll down for more »</a></p>
-        </div>
-        <div class="col-lg-4">
-            <div class="image-container">
-                <img src="static/help6.jpeg" alt="Help Image" class="rounded-circle">
-            </div>
-            <p>“Donate and be the sunshine in someone’s life during the storm. Your kindness can make a world of difference.”</p>
-            <p><a class="btn btn-secondary" href="#">Scroll down for more »</a></p>
-        </div>
     </div>
 
     <div class="container mt-4">
@@ -85,28 +64,30 @@
             
             <!-- Donation Form Column -->
                 <div class="col-md-5">
-                <form method="POST" action="">
-                    <label for="item">Select Item:</label>
-                    <select id="item" name="item" required>
-                        {% for item in items %}
-                        <option value="{{ item }}">{{ item }}</option>
-                        {% endfor %}
-                    </select><br><br>
-            
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" id="quantity" name="quantity" required><br><br>
-                    <h2>Current Inventory</h2>
-                    <ul>
-                        {% for entry in inv %}
-                            <li>{{ entry.item }}: {{ entry.quantity }}</li>
-                        {% endfor %}
-                    </ul>
-                    <button type="submit">Add/Update</button>
-                </form>
-            </div>
+                    <form method="POST" action="">
+                    <div class="form-group">
+                        <label for="item">Select Item:</label>
+                        <select id="item" name="item" class="form-select" required>
+                            {% for item in items %}
+                            <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" class = "form-control" name="quantity" placeholder="Enter quantity" required>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-cute">Submit Donation</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    
-    
+
 </body>
 </html>

@@ -41,9 +41,15 @@
 </head>
 <body>
     <div class="content-section">
+        <h2>Current Inventory</h2>
+        <ul>
+            {% for entry in inv %}
+                <li>{{ entry.item }}: {{ entry.quantity }}</li>
+            {% endfor %}
+        </ul>
         <h1> Your donation means so much to us.<br>
             Thank you for your kindness and generosity.
-            </h1>
+        </h1>
     
     <div class="button-container">
         <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>

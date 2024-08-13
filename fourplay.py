@@ -105,7 +105,7 @@ def contributor():
             new_item = Inventory(item=item, quantity=quantity)
             db.session.add(new_item)
         db.session.commit()
-        return redirect(url_for('contributor'))
+        return redirect(url_for('rec_cont'))
     inv = Inventory.query.all()
     return render_template('contributor.html', inv=inv, items=items)
 
@@ -120,7 +120,8 @@ def rec_after():
 
 @app.route("/rec_cont.html")
 def rec_cont():
-    return render_template('rec_cont.html')
+    inv = Inventory.query.all()
+    return render_template('rec_cont.html', inv=inv)
 
 @app.route("/receiver")
 def receiver():
