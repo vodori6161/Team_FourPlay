@@ -11,7 +11,7 @@
         body {
             background-color: #f8f9fa;
             font-family: 'Poppins', sans-serif;
-            background-image: url(/static/help.jpg);
+            background-image: url(/static/images/help.jpg);
         }
         .card {
             border: none;
@@ -61,64 +61,14 @@
                             <h1>Location</h1>
                         <button onclick="getLocation()">Get Location</button>
                         <p id="location"></p>
-                        <script>
-                            function getLocation() {
-                                if (navigator.geolocation) {
-                                    navigator.geolocation.getCurrentPosition(showPosition, showError);
-                                } else {
-                                    document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
-                                }
-                            }
-
-                            function showPosition(position) {
-                                const latitude = position.coords.latitude;
-                                const longitude = position.coords.longitude;
-
-                                // Show the position in the HTML (for demo purposes)
-                                document.getElementById("location").innerHTML = "Latitude: " + latitude + 
-                                "<br>Longitude: " + longitude;
-
-                                // Send the location data to Flask
-                                fetch('/location', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify({
-                                        latitude: latitude,
-                                        longitude: longitude
-                                    })
-                                }).then(response => response.json())
-                                .then(data => console.log(data))
-                                .catch((error) => {
-                                    console.error('Error:', error);
-                                });
-                            }
-
-                            function showError(error) {
-                                switch(error.code) {
-                                    case error.PERMISSION_DENIED:
-                                        document.getElementById("location").innerHTML = "User denied the request for Geolocation.";
-                                        break;
-                                    case error.POSITION_UNAVAILABLE:
-                                        document.getElementById("location").innerHTML = "Location information is unavailable.";
-                                        break;
-                                    case error.TIMEOUT:
-                                        document.getElementById("location").innerHTML = "The request to get user location timed out.";
-                                        break;
-                                    case error.UNKNOWN_ERROR:
-                                        document.getElementById("location").innerHTML = "An unknown error occurred.";
-                                        break;
-                                }
-                            }
-                        </script>
                         </div>
                         <div class="mb-3">
                             <label for="fileUpload" class="form-label">Upload Your Aadhar*</label>
                             <input type="file" class="form-control" id="fileUpload" accept="image/*,.pdf,.jpeg,.jpg,.png">
                         </div>
-                        <a href = "{{ url_for('rec_after') }}"
+                        <a href = "{{ url_for('rec_after') }}">
                         <button type="submit" class="btn btn-custom">Submit</button>
+                        </a>
                     </form>
                 </div>
             </div>

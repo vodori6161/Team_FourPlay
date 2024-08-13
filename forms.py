@@ -19,7 +19,4 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-class QuantityForm(FlaskForm):
-    item = StringField('Items ', validators=[DataRequired()])
-    quantity = IntegerField('Quantity ', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+
