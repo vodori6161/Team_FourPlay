@@ -20,6 +20,8 @@ bcrypt = Bcrypt(app)
 
 app.app_context().push()
 
+# Databases: 
+
 class Volunteer(db.Model, UserMixin):
     volunteer_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -32,10 +34,17 @@ class Volunteer(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.volunteer_id}', {self.username}', '{self.email}', '{self.password}')"
 
-class inventory(db.Model):
+class Inventory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     item = db.Column(db.String(40), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Inventory('{self.item}', '{self.value}')"
+    
+@app.before_request
+def create_tables():
+    db.create_all()
 
 # phone_no - primary key because we want him to come only once and we keep it for OTP. If phone_no exists in db, redirect to home page
 # location is for determining red zone or not
@@ -82,19 +91,23 @@ def logout():
 @app.route('/contributor', methods=['GET','POST'])
 @login_required
 def contributor():
-    form = QuantityForm()
-    if form.validate_on_submit():
-        selected_item = form.item.data
-        selected_quantity = form.quantity.data
-        # Store the selected value in the database
-        new_selection = inventory(item=selected_item, quantity=selected_quantity)
-        if inventory.query.filter_by(item=selected_item).first():
-            inventory.quantity = inventory.quantity + selected_quantity
-        db.session.add(new_selection)
+    items = ['Food (Packets)', 'Clean Water Cans', 'Clothes', 'Bedspreads', 'Bed', 'Vessels','Medicines','Other: ']
+    if request.method == 'POST':
+        item = request.form.get('item')
+        quantity = int(request.form.get('quantity'))
+
+        # check if exists
+        exists = Inventory.query.filter_by(item=item).first()
+
+        if exists:
+            exists.quantity += quantity
+        else:
+            new_item = Inventory(item=item, quantity=quantity)
+            db.session.add(new_item)
         db.session.commit()
-    else:
-        return render_template('contributor.html', form=form)
-    return redirect('rec_cont')
+        return redirect(url_for('contributor'))
+    inv = Inventory.query.all()
+    return render_template('contributor.html', inv=inv, items=items)
 
 @app.route('/chatbot')
 def chatbot():

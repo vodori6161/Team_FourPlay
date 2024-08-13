@@ -84,41 +84,24 @@
             </div>
             
             <!-- Donation Form Column -->
-            <div class="col-md-5">
+                <div class="col-md-5">
                 <form method="POST" action="">
-                    <div class="form-group">
-                        {{ form.hidden_tag() }}
-                            <h1 class="h3 mb-3 fw-normal">Items</h1>
-                            <div class="form-group">
-                            <select id="donationItem" class="form-select">
-                                <option selected>Select an item...</option>
-                                <option value="option1" {% if selected_value == 'option1' %}selected{% endif %}>Food (Packets) </option>
-                                <option value="option2" {% if selected_value == 'option2' %}selected{% endif %}>Clean Water Cans</option>
-                                <option value="option3" {% if selected_value == 'option3' %}selected{% endif %}>Clothes</option>
-                                <option value="option4" {% if selected_value == 'option4' %}selected{% endif %}>Bedspreads</option>
-                                <option value="option5" {% if selected_value == 'option5' %}selected{% endif %}>Bed</option>
-                                <option value="option6" {% if selected_value == 'option6' %}selected{% endif %}>Vessels</option>
-                                <option value="option7" {% if selected_value == 'option7' %}selected{% endif %}>Medicines</option>
-                                <option value="option8" {% if selected_value =='option8' %}selected{% endif %}>And more...</option>
-                            </select> 
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            {{ form.hidden_tag() }}
-                                <h1 class="h3 mb-3 fw-normal">Quantity</h1>
-                                <div class="form-group">
-                                    {{ form.quantity.label(class="form-control-label") }}
-                                    {{ form.quantity(class="form-control") }}
-                                </div>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="form-group">
-                            <a href="rec_cont.html">
-                            <btn class="btn btn-primary w-100 py-2">Submit</btn>
-                            </a>
-                          </div>
-                    </div>
+                    <label for="item">Select Item:</label>
+                    <select id="item" name="item" required>
+                        {% for item in items %}
+                        <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                    </select><br><br>
+            
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" required><br><br>
+                    <h2>Current Inventory</h2>
+                    <ul>
+                        {% for entry in inv %}
+                            <li>{{ entry.item }}: {{ entry.quantity }}</li>
+                        {% endfor %}
+                    </ul>
+                    <button type="submit">Add/Update</button>
                 </form>
             </div>
         </div>
