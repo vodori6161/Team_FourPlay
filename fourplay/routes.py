@@ -59,6 +59,21 @@ def contributor():
     inv = Inventory.query.all()
     return render_template('contributor.html', inv=inv, items=items)
 
+@app.route("/receiver", methods=["POST", "GET"])
+def receiver():
+    '''
+    if request.method == 'POST':
+        phone = request.form.get('phone')
+        latitude = request.form.get('latitude')
+        longitude = request.form.get('longitude') 
+
+        if latitude and longitude:
+            victim_data = Victim(phone=phone, latitude=float(latitude), longitude=float(longitude))
+            db.session.add(victim_data)
+            db.session.commit()
+    '''
+    return render_template('receiver.html')
+
 @app.route('/chatbot')
 def chatbot():
     return render_template('chatbot.html')
@@ -73,7 +88,3 @@ def rec_after():
 def rec_cont():
     inv = Inventory.query.all()
     return render_template('rec_cont.html', inv=inv)
-
-@app.route("/receiver")
-def receiver():
-    return render_template('receiver.html')

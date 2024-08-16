@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Location Display</title>
+</head>
+<body>
+    <h2>Fill out the form and get your location:</h2>
+    <form method="POST" id="locationForm">
+        <!-- Other form fields can go here -->
+
+        <div>
+            <label for="location">Your Location:</label>
+            <input type="text" id="location" name="location" readonly placeholder="Coordinates will appear here">
+        </div>
+
+        <div>
+            <button type="button" id="displayLocationBtn">Display Location</button>
+        </div>
+
+        <!-- Submit button for the form -->
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+
+    <script>
+        // Function to display the user's coordinates
+        function displayLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Display the coordinates in the input field
+                    document.getElementById('location').value =
+                        "Lat: " + latitude + ", Long: " + longitude;
+                }, function(error) {
+                    document.getElementById('location').value = 
+                        "Error: " + error.message;
+                });
+            } else {
+                document.getElementById('location').value = 
+                    "Geolocation not supported by this browser.";
+            }
+        }
+
+        // Attach event listener to the button
+        document.getElementById('displayLocationBtn').addEventListener('click', displayLocation);
+    </script>
+</body>
+</html>

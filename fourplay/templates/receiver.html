@@ -43,7 +43,6 @@
     </style>
 </head>
 <body>
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -52,22 +51,20 @@
                     <h2>Please fill up the form.</h2>
                 </div>
                 <div class="card-body p-4">
-                    <form>
+                    <form action="">
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone Number*</label>
                             <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
                         </div>
                         <div class="mb-3">
-                            <h1>Location</h1>
-                        <button onclick="getLocation()">Get Location</button>
-                        <p id="location"></p>
+                            <label for="location" class="form-label">Address*</label>
+                            <input type="text" id="location" name="location" class="form-control" readonly placeholder="Your coordinates">
                         </div>
-                        <div class="mb-3">
-                            <label for="fileUpload" class="form-label">Upload Your Aadhar*</label>
-                            <input type="file" class="form-control" id="fileUpload" accept="image/*,.pdf,.jpeg,.jpg,.png">
+                        <div>
+                            <button type="button" id="displayLocationBtn">Display Location</button>
                         </div>
                         <a href = "{{ url_for('rec_after') }}">
-                        <button type="submit" class="btn btn-custom">Submit</button>
+                            <button type="submit" class="btn btn-custom">Submit</button>
                         </a>
                     </form>
                 </div>
@@ -77,7 +74,32 @@
 </div>
 
 <!-- Bootstrap JS and dependencies -->
+<script>
+    // Function to display the user's coordinates
+    function displayLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Display the coordinates in the input field
+                document.getElementById('location').value =
+                    "Lat: " + latitude + ", Long: " + longitude;
+            }, function(error) {
+                document.getElementById('location').value = 
+                    "Error: " + error.message;
+            });
+        } else {
+            document.getElementById('location').value = 
+                "Geolocation not supported by this browser.";
+        }
+    }
+
+    // Attach event listener to the button
+    document.getElementById('displayLocationBtn').addEventListener('click', displayLocation);
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
