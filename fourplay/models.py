@@ -34,4 +34,4 @@ class Victim(db.Model):
     latitude = db.Column(db.Float, unique=True, nullable=False)
 
     def __repr__(self):
-        return f"Victim('{self.phone}')"
+        return f"Victim('{self.phone}', '{self.latitude}', '{self.longitude}')"

@@ -59,16 +59,14 @@
                         <div class="mb-3">
                             <label for="location" class="form-label">Address*</label>
                             <input type="text" id="location" name="location" class="form-control" readonly placeholder="Click on Display Location">
+                            <input type="hidden" id="latitude" name="latitude">
+                            <input type="hidden" id="longitude" name="longitude">
                         </div>
-                        <input type="hidden" id="latitude" name="latitude">
-                        <input type="hidden" id="longitude" name="longitude">
                         <div>
                             <button type="button" id="displayLocationBtn">Display Location</button>
                         </div>
                         <br>
-                        <a href = "{{ url_for('rec_after') }}">
                             <button type="submit" class="btn btn-custom">Submit</button>
-                        </a>
                     </form>
                 </div>
             </div>
@@ -77,6 +75,8 @@
 </div>
 
 <!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script>
     // Function to display the user's coordinates
     function displayLocation() {
@@ -88,6 +88,8 @@
                 // Display the coordinates in the input field
                 document.getElementById('location').value =
                     "Lat: " + latitude + ", Long: " + longitude;
+                document.getElementById('longitude').value = longitude;
+                document.getElementById('latitude').value = latitude;
             }, function(error) {
                 document.getElementById('location').value = 
                     "Error: " + error.message;
@@ -101,8 +103,5 @@
     // Attach event listener to the button
     document.getElementById('displayLocationBtn').addEventListener('click', displayLocation);
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-
 </body>
 </html>

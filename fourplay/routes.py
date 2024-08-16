@@ -65,11 +65,11 @@ def receiver():
         phone = request.form.get('phone')
         latitude = request.form.get('latitude')
         longitude = request.form.get('longitude') 
-
         if phone and latitude and longitude:
             victim_data = Victim(phone=phone, latitude=float(latitude), longitude=float(longitude))
             db.session.add(victim_data)
             db.session.commit()
+            return redirect(url_for('rec_after'))
     return render_template('receiver.html')
 
 @app.route('/chatbot')
