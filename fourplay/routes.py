@@ -61,17 +61,15 @@ def contributor():
 
 @app.route("/receiver", methods=["POST", "GET"])
 def receiver():
-    '''
     if request.method == 'POST':
         phone = request.form.get('phone')
         latitude = request.form.get('latitude')
         longitude = request.form.get('longitude') 
 
-        if latitude and longitude:
+        if phone and latitude and longitude:
             victim_data = Victim(phone=phone, latitude=float(latitude), longitude=float(longitude))
             db.session.add(victim_data)
             db.session.commit()
-    '''
     return render_template('receiver.html')
 
 @app.route('/chatbot')

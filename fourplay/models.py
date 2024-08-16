@@ -29,6 +29,9 @@ class Inventory(db.Model):
 # phone_no - primary key because we want him to come only once and we keep it for OTP. If phone_no exists in db, redirect to home page
 # location is for determining red zone or not
 class Victim(db.Model):
-    phone = db.Column(db.BigInteger, primary_key=True, unique=True, nullable=False)
+    phone = db.Column(db.BigInteger, primary_key=True)
     longitude = db.Column(db.Float, unique=True, nullable=False)
     latitude = db.Column(db.Float, unique=True, nullable=False)
+
+    def __repr__(self):
+        return f"Victim('{self.phone}')"
