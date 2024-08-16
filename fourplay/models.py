@@ -26,7 +26,7 @@ class Inventory(db.Model):
     def __repr__(self):
         return f"Inventory('{self.item}', '{self.quantity}')"
     
-# phone_no - primary key because we want him to come only once and we keep it for OTP. If phone_no exists in db, redirect to home page
+# phone - primary key because we want him to come only once and we keep it for OTP. If phone exists in db, redirect to home page
 # location is for determining red zone or not
 class Victim(db.Model):
     phone = db.Column(db.BigInteger, primary_key=True)
